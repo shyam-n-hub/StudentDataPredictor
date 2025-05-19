@@ -2,7 +2,6 @@
   display: flex;
   height: 100vh;
   font-family: 'Segoe UI', sans-serif;
-  
 }
 
 .sidebar {
@@ -16,6 +15,8 @@
   height: 100vh;
   box-shadow: 2px 0 5px rgba(0, 0, 0, 0.1);
   position: fixed;
+  transition: transform 0.3s ease, width 0.3s ease;
+  z-index: 10;
 }
 
 .nav-link {
@@ -24,6 +25,8 @@
   padding: 10px;
   border-radius: 8px;
   transition: background 0.2s ease;
+  display: flex;
+  align-items: center;
 }
 
 .nav-link:hover {
@@ -34,4 +37,59 @@
   flex: 1;
   padding: 30px;
   background-color: #f1f5f9; /* Slate-100 */
+  margin-left: 200px; /* Match sidebar width */
+  transition: margin-left 0.3s ease;
+}
+
+/* Mobile menu toggle button - hidden by default on desktop */
+.mobile-toggle {
+  display: none;
+  position: fixed;
+  top: 10px;
+  left: 10px;
+  z-index: 20;
+  background-color: #1e293b;
+  color: white;
+  border: none;
+  border-radius: 5px;
+  padding: 8px 12px;
+  cursor: pointer;
+  width: 10%;
+}
+
+/* Media queries for responsive design */
+@media screen and (max-width: 768px) {
+  .sidebar {
+    transform: translateX(-100%); /* Hide sidebar by default */
+    width: 180px;
+  }
+  
+  .sidebar.open {
+    transform: translateX(0); /* Show sidebar when open class is added */
+  }
+  
+  .mobile-toggle {
+    display: block; /* Show toggle button on mobile */
+  }
+  
+  .main-content {
+    margin-left: 0; /* Reset margin when sidebar is hidden */
+    padding: 20px;
+    padding-top: 60px; /* Add space for the mobile toggle button */
+  }
+}
+
+/* Extra small devices */
+@media screen and (max-width: 480px) {
+  .sidebar {
+    width: 100%; /* Full width sidebar/overlay on very small screens */
+    padding: 50px 20px 20px 20px; /* Add padding top for toggle button */
+   
+  }
+  
+  .nav-link {
+    padding: 5px 10px; /* Larger touch targets on mobile */
+    font-size: 18px;
+     margin-top: 20px;
+  }
 }
