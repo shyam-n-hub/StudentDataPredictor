@@ -19,6 +19,7 @@ function Form() {
   const [prediction, setPrediction] = useState(null);
   const [error, setError] = useState("");
   const [history, setHistory] = useState([]);
+  const [isLoading, setIsLoading] = useState(false);
 
   useEffect(() => {
     const savedHistory = JSON.parse(localStorage.getItem("predictionHistory")) || [];
@@ -37,6 +38,7 @@ function Form() {
     e.preventDefault();
     setPrediction(null);
     setError("");
+    setIsLoading(true);
 
     try {
       const response = await axios.post(`${import.meta.env.VITE_API_BASE_URL}/predict`, formData);
@@ -47,6 +49,8 @@ function Form() {
       setHistory([newEntry, ...history]);
     } catch (err) {
       setError("Something went wrong. Make sure the backend is running.");
+    } finally {
+      setIsLoading(false);
     }
   };
 
@@ -84,10 +88,29 @@ function Form() {
           </select>
         </label>
 
-        <button type="submit">Predict Performance</button>
+        <button type="submit" disabled={isLoading}>
+          {isLoading ? (
+            <span className="loading-spinner">
+              <span className="spinner"></span> Predicting...
+            </span>
+          ) : (
+            "Predict Performance"
+          )}
+        </button>
       </form>
 
-      {prediction && (
+      {/* {isLoading && (
+        <div className="loading-container">
+          <div className="loading-animation">
+            <div className="bounce1"></div>
+            <div className="bounce2"></div>
+            <div className="bounce3"></div>
+          </div>
+          <p>Analyzing student data...</p>
+        </div>
+      )} */}
+
+      {prediction && !isLoading && (
         <div className="result">
           <h2>📊 Prediction: <span>{prediction}</span></h2>
         </div>
@@ -95,7 +118,7 @@ function Form() {
 
       {error && <p style={{ color: "red" }}>{error}</p>}
 
-      {history.length > 0 && (
+      {history.length > 0 && !isLoading && (
         <div className="history">
           <h3>📚 Prediction History</h3>
           <table>
@@ -127,7 +150,7 @@ function Form() {
         </div>
       )}
 
-      {history.length > 0 && (
+      {history.length > 0 && !isLoading && (
         <div className="chart-container">
           <h3>📈 Prediction Summary Chart</h3>
           <Bar

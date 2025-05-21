@@ -133,6 +133,8 @@ button.predict-button:active {
   box-shadow: 0 2px 4px rgba(79, 70, 229, 0.3);
 }
 
+
+
 @media (max-width: 768px) {
   .file-input-wrapper {
     max-width: 100%;
@@ -141,5 +143,106 @@ button.predict-button:active {
   button.predict-button {
     width: 100%;
     padding: 12px;
+  }
+}
+
+
+
+
+.bulk-result {
+  width: 100%;
+  max-width: 1000px;
+  margin: 40px auto;
+  padding: 20px;
+  background-color: #ffffff;
+  border: 1px solid #e2e8f0;
+  border-radius: 12px;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.05);
+}
+
+.bulk-result h4 {
+  font-size: 20px;
+  color: #1e293b;
+  margin-bottom: 20px;
+  text-align: center;
+}
+
+.bulk-result table {
+  width: 100%;
+  border-collapse: collapse;
+  font-size: 14px;
+  background-color: #f9fafb;
+  border-radius: 8px;
+  overflow: hidden;
+}
+
+.bulk-result thead {
+  background-color: #4f46e5; /* Indigo-600 */
+  color: white;
+}
+
+.bulk-result th,
+.bulk-result td {
+  padding: 12px 16px;
+  text-align: center;
+  border-bottom: 1px solid #e2e8f0;
+}
+
+.bulk-result tbody tr:hover {
+  background-color: #eef2ff; /* Indigo-50 */
+  transition: background-color 0.2s ease;
+}
+
+.bulk-result td {
+  color: #334155;
+}
+
+.bulk-result th {
+  font-weight: 600;
+}
+
+/* Responsive Table */
+@media (max-width: 768px) {
+  .bulk-result table,
+  .bulk-result thead,
+  .bulk-result tbody,
+  .bulk-result th,
+  .bulk-result td,
+  .bulk-result tr {
+    display: block;
+    width: 100%;
+  }
+
+  .bulk-result thead {
+    display: none;
+  }
+
+  .bulk-result tr {
+    margin-bottom: 15px;
+    border: 1px solid #e2e8f0;
+    border-radius: 8px;
+    padding: 12px;
+    background-color: #ffffff;
+  }
+
+  .bulk-result td {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 10px;
+    font-size: 14px;
+    border-bottom: 1px solid #f1f5f9;
+  }
+
+  .bulk-result td::before {
+    content: attr(data-label);
+    font-weight: 600;
+    color: #475569;
+    flex: 1;
+    text-align: left;
+  }
+
+  .bulk-result td:last-child {
+    border-bottom: none;
   }
 }
